@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de PDF</title>
+</head>
+<body>
+
+    <form action="/extract-text" method="post" enctype="multipart/form-data">
+        <label for="inpFile">Escolha um arquivo PDF:</label>
+        <input type="file" id="inpFile" name="inpFile" accept=".pdf">
+        <br>
+        <button type="button" id="btnUpload">Enviar</button>
+        <textarea id="textarea" cols="50" rows="30"></textarea>
+    </form>
+
+    <script>
+        const btnUpload = document.getElementById('btnUpload');
+        const inpFile = document.getElementById('inpFile');
+        const textarea = document.getElementById('textarea');
+
+        btnUpload.addEventListener('click', () => {
+            const formData = new FormData();
+            formData.append('inpFile', inpFile.files[0]);
+
+            // Envia a requisição para o servidor
+            fetch('/extract-text', {
+                method: 'post',
+                body: formData
+            }).then(response => {
+                return response.text();
+            }).then(extractedText => {
+                // Atualiza o valor do textarea com o texto extraído
+                textarea.value = extractedText;
+            });
+        });
+    </script>
+
+</body>
+</html>

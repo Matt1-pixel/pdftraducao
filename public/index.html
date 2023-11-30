@@ -23,12 +23,13 @@
         btnUpload.addEventListener('click', () => {
             const formData = new FormData();
             formData.append('inpFile', inpFile.files[0]);
-
+            console.log('antes fetch')
             // Envia a requisição para o servidor
             fetch('/extract-text', {
                 method: 'post',
                 body: formData
             }).then(response => {
+                console.log('apos fetch')
                 return response.text();
             }).then(extractedText => {
                 // Atualiza o valor do textarea com o texto extraído

@@ -3,7 +3,9 @@ const fileUpload = require('express-fileupload');
 const pdfParse = require('pdf-parse');
 
 const app = express();
+const cors = require('cors');
 
+app.use(cors());
 // Middleware para servir arquivos estáticos do diretório 'public'
 app.use('/', express.static('public'));
 
@@ -12,6 +14,7 @@ app.use(fileUpload());
 
 // Rota para extrair texto de um arquivo PDF
 app.post('/extract-text', (req, res) => {
+    console.log('recebi uma soli post ')
     // Verifica se há um arquivo PDF no campo 'inpFile' do formulário
     console.log("foi 1")
     if (!req.files || !req.files.inpFile) {
